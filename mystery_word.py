@@ -58,7 +58,9 @@ def tracker(file):
         if letter.isalpha() and len(letter) == 1:
             lower_guess = letter.lower()
             #if letter is in mystery word: add to correct guesses, notify user, update display
-            if lower_guess in file:
+            if lower_guess in correct_guesses or lower_guess in incorrect_guesses:
+                print("Oops! You already guessed that letter! Accidents happen - you will not lose a turn for this error. Please try ain!") #works
+            elif lower_guess in file:
                 if lower_guess not in correct_guesses:
                     correct_guesses.append(lower_guess)
                     print(correct_guesses)
@@ -69,10 +71,6 @@ def tracker(file):
                     if display == file:
                         print("\nCongratulations - you won!")
                         break #works
-
-            elif lower_guess in correct_guesses or lower_guess in incorrect_guesses:
-                print("Oops! You already guessed that letter! Accidents happen - you will not lose a turn for this error. Please try ain!") #works
-                
             else:
                 print(f"{lower_guess} is not in the word.") #works
                 guesses_left -= 1
@@ -83,7 +81,7 @@ def tracker(file):
             print("You did not enter a valid letter. Please try again!")    #works
         print(f"Correct letters guessed: {correct_guesses} \t\tIncorrect letters guessed: {incorrect_guesses} \t\tGuesses left: {guesses_left}") #works
     if guesses_left == 0:
-        print(f"You did not guess the mystery word, which is {file}. Game over.")
+        print(f"You did not guess the mystery word, which is {get_word(file)}. Game over.")
 
 
 #combine all the components to play the game
